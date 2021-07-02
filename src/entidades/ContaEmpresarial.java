@@ -99,4 +99,20 @@ public class ContaEmpresarial extends Sistema{
     public double solicitarEmprestimo(){
         
     }
+    
+    public void criarConta(){
+        
+    }
+    
+    public void entrarConta(){
+        
+    }
+    
+    public void sairConta(){
+        
+    }
+    
+    public void deletarConta(){
+        
+    }
 }

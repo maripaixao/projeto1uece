@@ -87,5 +87,21 @@ public class ContaPessoaFisica extends Sistema{
         }
         return convertido;
         }
+    
+    public void criarConta(){
+        
+    }
+    
+    public void entrarConta(){
+        
+    }
+    
+    public void sairConta(){
+        
+    }
+    
+    public void deletarConta(){
+        
+    }
     }
 
