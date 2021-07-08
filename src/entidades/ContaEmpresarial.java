@@ -1,22 +1,20 @@
 package entidades;
 
 import java.util.Scanner;
+import java.util.Random;
 
 public class ContaEmpresarial extends Sistema{
     Scanner sc = new Scanner(System.in);
-    private String empresa;
-    private String cnpj;
-    private Double emprestimo;
-    private Double juros;
+    Random random = new Random();
+    private String empresa, cnpj;
     private Double valorConversao;
     
     public ContaEmpresarial(){}
 
-    public ContaEmpresarial(String empresa, String cnpj, Double emprestimo, Double juros) {
+    public ContaEmpresarial(String empresa, String cnpj) {
         this.empresa = empresa;
         this.cnpj = cnpj;
-        this.emprestimo = emprestimo;
-        this.juros = juros;
+        
     }
 
     public String getEmpresa() {
@@ -35,41 +33,36 @@ public class ContaEmpresarial extends Sistema{
         this.cnpj = cnpj;
     }
 
-    public Double getEmprestimo() {
-        return emprestimo;
-    }
 
-    public void setEmprestimo(Double emprestimo) {
-        this.emprestimo = emprestimo;
-    }
-
-    public Double getJuros() {
-        return juros;
-    }
-
-    public void setJuros(Double juros) {
-        this.juros = juros;
+    @Override
+    public void sacar(double valor) {
+        if(this.getStatus().equals("Ativa")){
+            if (this.getSaldo() >= valor){
+                System.out.println("Valor a ser sacado R$" + valor);
+                this.saldo -= valor;
+                System.out.println(this.saldo);
+            } else{
+                System.out.println("Saldo insuficiente.");
+            }
+        } else {
+            System.out.println("Não foi possivel realizar a transação.");
+        }
     }
 
     @Override
-    public double sacar() {
-        return this.saldo -= this.saque;
+    public void depositar(double valor) {
+        if(this.getStatus().equals("Ativa")){
+            System.out.println("Depósito de R$" + valor + " efetuado com sucesso!");
+            this.saldo += valor;
+            System.out.println(this.saldo);
+        } else {
+            System.out.println("Não foi possivel realizar a transação.");
+        }
     }
 
     @Override
-    public double depositar() {
-        return this.saldo += this.deposito;
-    }
-
-    @Override
-    public double transferir() {
-        
-    }
-
-    @Override
-    public double converterMoeda() {
-        Double convertido = null;
-        System.out.println("Informe a Moeda para Conversão\n1- Dólar\n2- Euro\n3- Libra");
+    public void converterMoeda(double convertido) {
+        System.out.println("Informe a Moeda para Conversão 1- Dólar | 2- Euro | 3- Libra");
         int moeda = sc.nextInt();
         System.out.println("Quanto em R$ você deseja converter?");
         this.valorConversao = sc.nextDouble();
@@ -93,26 +86,32 @@ public class ContaEmpresarial extends Sistema{
         } else{
             System.out.println("Você não possui saldo suficiente.");
         }
-        return convertido;
+    }
+     
+    
+    @Override
+    public void criarConta(String status){
+    
     }
     
-    public double solicitarEmprestimo(){
-        
+    @Override
+    public void deletarConta(String status){
+        if (this.getSaldo() > 0){
+            System.out.println("Não foi possível realizar essa operação. Ainda há dinheiro na conta.");
+        }else if(this.getSaldo() < 0){
+            System.out.println("Conta não pode ser fechada, pois  há debitos pendentes.");
+        } else{
+            this.setStatus("Inativa");
+            System.out.println("Conta fechada com sucesso!");
+        }
     }
-    
-    public void criarConta(){
-        
-    }
-    
-    public void entrarConta(){
-        
-    }
-    
-    public void sairConta(){
-        
-    }
-    
-    public void deletarConta(){
-        
+
+    @Override
+    public void estadoAtual() {
+        System.out.println("Nº Conta: " + this.getNumConta());
+        System.out.println("Tipo: " + this.getTipo());
+        System.out.println("Status: " + this.getStatus());
+        System.out.println("Empresa: " + this.getEmpresa());
+        System.out.println("Saldo: " + this.getSaldo());
     }
 }
