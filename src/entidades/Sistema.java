@@ -1,10 +1,9 @@
 package entidades;
 abstract class Sistema {
-    private Integer numConta;
-    Double saldo;
-    Double saque;
-    Double deposito;
-    private Boolean contaFisica = true;
+    public Integer numConta;
+    Double saldo, valor;
+    String status;
+    protected String tipo;
     Double dolar = 5.0;
     Double euro = 5.92;
     Double libra = 6.9;
@@ -12,13 +11,14 @@ abstract class Sistema {
     public Sistema(){
     }
 
-    public Sistema(Integer numConta, Double saldo, Double saque, Double deposito, Boolean contaFisica) {
+    public Sistema(Integer numConta, Double saldo, Double valor, String status, String tipo) {
         this.numConta = numConta;
         this.saldo = saldo;
-        this.saque = saque;
-        this.deposito = deposito;
-        this.contaFisica = contaFisica;
+        this.valor = valor;
+        this.status = status;
+        this.tipo = tipo;
     }
+
 
     public Integer getNumConta() {
         return numConta;
@@ -36,28 +36,28 @@ abstract class Sistema {
         this.saldo = saldo;
     }
 
-    public Double getSaque() {
-        return saque;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setSaque(Double saque) {
-        this.saque = saque;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
-    public Double getDeposito() {
-        return deposito;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDeposito(Double deposito) {
-        this.deposito = deposito;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public Boolean getContaFisica() {
-        return contaFisica;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setContaFisica(Boolean contaFisica) {
-        this.contaFisica = contaFisica;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public Double getDolar() {
@@ -65,7 +65,7 @@ abstract class Sistema {
     }
 
     public void setDolar(Double dolar) {
-        this.dolar = dolar;
+        this.dolar = 5.0;
     }
 
     public Double getEuro() {
@@ -73,7 +73,7 @@ abstract class Sistema {
     }
 
     public void setEuro(Double euro) {
-        this.euro = euro;
+        this.euro = 5.92;
     }
 
     public Double getLibra() {
@@ -81,15 +81,19 @@ abstract class Sistema {
     }
 
     public void setLibra(Double libra) {
-        this.libra = libra;
+        this.libra = 6.9;
     }
+
+    public abstract void sacar(double valor);
     
-    public abstract double sacar();
+    public abstract void depositar(double valor);
     
-    public abstract double depositar();
+    public abstract void converterMoeda(double convertido);
     
-    public abstract double transferir();
+    public abstract void criarConta(String status);
     
-    public abstract double converterMoeda();
+    public abstract void deletarConta(String status);
+    
+    public abstract void estadoAtual();
     
 }
